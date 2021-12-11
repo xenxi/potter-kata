@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PotterKata", "PotterKata\PotterKata.csproj", "{9BF934A9-1620-4787-85FA-15105AB9E1D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PotterKata.Tests", "PotterKata.Tests\PotterKata.Tests.csproj", "{41A2A049-6C50-4D2B-A452-01DBB2392F35}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9BF934A9-1620-4787-85FA-15105AB9E1D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BF934A9-1620-4787-85FA-15105AB9E1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BF934A9-1620-4787-85FA-15105AB9E1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BF934A9-1620-4787-85FA-15105AB9E1D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41A2A049-6C50-4D2B-A452-01DBB2392F35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41A2A049-6C50-4D2B-A452-01DBB2392F35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41A2A049-6C50-4D2B-A452-01DBB2392F35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41A2A049-6C50-4D2B-A452-01DBB2392F35}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55C19C88-3D70-4AE2-9D04-AC83D813730D}
+	EndGlobalSection
+EndGlobal
