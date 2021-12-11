@@ -18,7 +18,7 @@ namespace PotterKata.Tests
 
             var price = PriceCalculator.Calcule(books);
 
-            price.Should().Be(51.20);
+            price.Should().Be(51.20m);
         }
 
     }
