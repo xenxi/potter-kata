@@ -11,11 +11,13 @@ namespace PotterKata.Tests
             if (books.Length > 1)
             {
                 var subtotal = UnitPrice * books.Length;
-                var discount = (subtotal * 5) / 100;
+                var discount = GetDiscount(subtotal);
                 return subtotal - discount;
             }
 
             return UnitPrice;
         }
+
+        private static decimal GetDiscount(decimal price) => (price * 5) / 100;
     }
 }
