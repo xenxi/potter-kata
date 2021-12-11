@@ -4,9 +4,9 @@ namespace PotterKata.Tests
 {
     public class PriceCalculator
     {
-        public static decimal Calcule(params string[] book)
+        public static decimal Calcule(params string[] books)
         {
-            if (book.Length > 1)
+            if (books.Length > 1)
                 return 15.2m;
             return 8;
         }
