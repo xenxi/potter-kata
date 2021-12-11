@@ -19,5 +19,14 @@ namespace PotterKata.Tests
 
             price.Should().Be(8);
         }
+
+
+        [Test]
+        public void two_different_books_have_a_right_discount()
+        {
+            var priceWithDiscount = PriceCalculator.Calcule("first_book", "second_book");
+
+            priceWithDiscount.Should().Be(15.2m);
+        }
     }
 }
