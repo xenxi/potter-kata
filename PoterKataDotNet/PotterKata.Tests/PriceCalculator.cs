@@ -16,10 +16,17 @@ public class PriceCalculator
     private static decimal ApplyDiscount(int numberOfBooks)
     {
         var subtotal = UnitPrice * numberOfBooks;
-        return subtotal - CalculeDiscount(subtotal);
+        return subtotal - CalculeDiscount(subtotal, GetApplicableDiscount(numberOfBooks));
     }
 
-    private static decimal CalculeDiscount(decimal price) => (price * 5) / 100;
+    private static int GetApplicableDiscount(int numberOfBooks)
+    {
+        if (numberOfBooks == 3)
+            return 10;
+        return 5;
+    }
+
+    private static decimal CalculeDiscount(decimal price, decimal discountRate) => price * discountRate / 100;
 
     private static bool JustOneBook(string[] books) => books.Distinct().Count() <= 1;
 }
