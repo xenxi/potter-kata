@@ -28,4 +28,15 @@ public class PriceCalculatorShould
 
         priceWithDiscount.Should().Be(15.2m);
     }
+
+    [Test]
+    public void two_units_of_the_same_book_has_not_discount()
+    {
+        var priceWithoutDiscount = PriceCalculator.Calcule("first_book", "first_book");
+
+        priceWithoutDiscount.Should().Be(16);
+    }
+
+
+
 }

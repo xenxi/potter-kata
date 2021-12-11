@@ -1,4 +1,6 @@
-﻿namespace PotterKata.Tests;
+﻿using System.Linq;
+
+namespace PotterKata.Tests;
 
 public class PriceCalculator
 {
@@ -6,7 +8,7 @@ public class PriceCalculator
 
     public static decimal Calcule(params string[] books)
     {
-        if (JustOneBook(books)) return UnitPrice;
+        if (JustOneBook(books)) return UnitPrice * books.Length;
 
         return ApplyDiscount(books.Length);
     }
@@ -19,5 +21,5 @@ public class PriceCalculator
 
     private static decimal CalculeDiscount(decimal price) => (price * 5) / 100;
 
-    private static bool JustOneBook(string[] books) => books.Length <= 1;
+    private static bool JustOneBook(string[] books) => books.Distinct().Count() <= 1;
 }
