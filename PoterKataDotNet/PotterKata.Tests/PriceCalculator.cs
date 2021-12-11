@@ -14,10 +14,10 @@ public class PriceCalculator
     private static decimal ApplyDiscount(int numberOfBooks)
     {
         var subtotal = UnitPrice * numberOfBooks;
-        return subtotal - GetDiscount(subtotal);
+        return subtotal - CalculeDiscount(subtotal);
     }
 
-    private static decimal GetDiscount(decimal price) => (price * 5) / 100;
+    private static decimal CalculeDiscount(decimal price) => (price * 5) / 100;
 
     private static bool JustOneBook(string[] books) => books.Length <= 1;
 }
