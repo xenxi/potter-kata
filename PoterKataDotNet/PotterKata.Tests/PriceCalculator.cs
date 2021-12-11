@@ -11,8 +11,7 @@ namespace PotterKata.Tests
             if (books.Length > 1)
             {
                 var subtotal = UnitPrice * books.Length;
-                var discount = GetDiscount(subtotal);
-                return subtotal - discount;
+                return subtotal - GetDiscount(subtotal);
             }
 
             return UnitPrice;
