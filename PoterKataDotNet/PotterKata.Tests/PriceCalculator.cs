@@ -8,11 +8,16 @@ public class PriceCalculator
     {
         if (JustOneBook(books)) return UnitPrice;
 
-        var subtotal = UnitPrice * books.Length;
+        return ApplyDiscount(books.Length);
+    }
+
+    private static decimal ApplyDiscount(int numberOfBooks)
+    {
+        var subtotal = UnitPrice * numberOfBooks;
         return subtotal - GetDiscount(subtotal);
     }
 
-    private static bool JustOneBook(string[] books) => books.Length <= 1;
-
     private static decimal GetDiscount(decimal price) => (price * 5) / 100;
+
+    private static bool JustOneBook(string[] books) => books.Length <= 1;
 }
