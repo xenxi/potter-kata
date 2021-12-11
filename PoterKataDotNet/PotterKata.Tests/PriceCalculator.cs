@@ -6,12 +6,10 @@ public class PriceCalculator
 
     public static decimal Calcule(params string[] books)
     {
-        if (!JustOneBook(books))
-        {
-            var subtotal = UnitPrice * books.Length;
-            return subtotal - GetDiscount(subtotal);
-        }
-        return UnitPrice;
+        if (JustOneBook(books)) return UnitPrice;
+
+        var subtotal = UnitPrice * books.Length;
+        return subtotal - GetDiscount(subtotal);
     }
 
     private static bool JustOneBook(string[] books) => books.Length <= 1;
