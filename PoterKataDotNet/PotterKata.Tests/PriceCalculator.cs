@@ -23,6 +23,8 @@ public class PriceCalculator
     {
         if (numberOfBooks == 3)
             return 10;
+        if (numberOfBooks == 4)
+            return 20;
         return 5;
     }
 
