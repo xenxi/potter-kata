@@ -7,14 +7,13 @@ public class PriceCalculator
     public static decimal Calcule(ShoppingCart shoppingCart)
     {
         var books = shoppingCart.Books;
-        var i = 0;
-        IEnumerable<Book> currentBooks;
-        decimal total = 0;
-        do
+
+        var packs = GetPacks(books);
+        var total = 0m;
+        foreach (var pack in packs)
         {
-            currentBooks = books.Skip(5 * i++).Take(5);
-            total += ApplyDiscount(currentBooks.ToArray());
-        } while (currentBooks.Any());
+            total += ApplyDiscount(pack.ToArray());
+        }
 
         return total;
     }
@@ -43,6 +42,28 @@ public class PriceCalculator
         if (numberOfBooks == 5)
             return 25;
         return 5;
+    }
+
+    private static IEnumerable<IEnumerable<Book>> GetPacks(IList<Book> books)
+    {
+        var test = books.ToList();
+
+        var group = test.GroupBy(x => x).ToDictionary(g => g.Key, g => g.Count());
+        var result = new List<IEnumerable<Book>>();
+        while (group.Values.Sum() > 0)
+        {
+            var aux = new List<Book>();
+            foreach (var dataPack in group)
+            {
+                if (dataPack.Value > 0)
+                {
+                    aux.Add(dataPack.Key);
+                    group[dataPack.Key]--;
+                }
+            }
+            result.Add(aux);
+        }
+        return result;
     }
     private static bool JustOneBook(Book[] books) => books.Distinct().Count() <= 1;
 }

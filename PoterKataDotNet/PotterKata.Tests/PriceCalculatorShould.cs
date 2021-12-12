@@ -76,7 +76,7 @@ public class PriceCalculatorShould
 
         priceWithDiscount.Should().Be(46m);
     }
-    [TestCase()]
+    [Test]
     public void calcule_lowest_price_for_five_different_books_and_two_different_repeated()
     {
         var shoppingCart = new ShoppingCart(Book.First, Book.First, Book.Second, Book.Second, Book.Third, Book.Fourth, Book.Fith);
