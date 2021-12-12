@@ -6,12 +6,12 @@ namespace PotterKata.Tests;
 [TestFixture]
 public class PriceCalculatorShould
 {
-    [TestCase("first_book")]
-    [TestCase("second_book")]
-    [TestCase("third_book")]
-    [TestCase("fourth_book")]
-    [TestCase("fith_book")]
-    public void each_book_cost_eight(string book)
+    [TestCase(Book.First)]
+    [TestCase(Book.Second)]
+    [TestCase(Book.Third)]
+    [TestCase(Book.Fourth)]
+    [TestCase(Book.Fith)]
+    public void each_book_cost_eight(Book book)
     {
         var shoppingCart = new ShoppingCart(book);
 
@@ -24,7 +24,7 @@ public class PriceCalculatorShould
     [Test]
     public void two_different_books_have_a_right_discount()
     {
-        var shoppingCart = new ShoppingCart("first_book", "second_book");
+        var shoppingCart = new ShoppingCart(Book.First, Book.Second);
 
         var priceWithDiscount = PriceCalculator.Calcule(shoppingCart);
 
@@ -33,7 +33,7 @@ public class PriceCalculatorShould
     [Test]
     public void three_different_books_have_a_right_discount()
     {
-        var shoppingCart = new ShoppingCart("first_book", "second_book", "third_book");
+        var shoppingCart = new ShoppingCart(Book.First, Book.Second, Book.Third);
 
         var priceWithDiscount = PriceCalculator.Calcule(shoppingCart);
 
@@ -42,7 +42,7 @@ public class PriceCalculatorShould
     [Test]
     public void four_different_books_have_a_right_discount()
     {
-        var shoppingCart = new ShoppingCart("first_book", "second_book", "third_book", "fourth_book");
+        var shoppingCart = new ShoppingCart(Book.First, Book.Second, Book.Third, Book.Fourth);
 
         var priceWithDiscount = PriceCalculator.Calcule(shoppingCart);
 
@@ -51,7 +51,7 @@ public class PriceCalculatorShould
     [Test]
     public void five_different_books_have_a_right_discount()
     {
-        var shoppingCart = new ShoppingCart("first_book", "second_book", "third_book", "fourth_book", "fith_book");
+        var shoppingCart = new ShoppingCart(Book.First, Book.Second, Book.Third, Book.Fourth, Book.Fith);
 
         var priceWithDiscount = PriceCalculator.Calcule(shoppingCart);
 
@@ -61,7 +61,7 @@ public class PriceCalculatorShould
     [Test]
     public void calcule_lowest_price()
     {
-        var shoppingCart = new ShoppingCart("first_book", "second_book", "third_book", "fourth_book", "fith_book", "first_book");
+        var shoppingCart = new ShoppingCart(Book.First, Book.Second, Book.Third, Book.Fourth, Book.Fith, Book.First);
 
         var priceWithDiscount = PriceCalculator.Calcule(shoppingCart);
 
@@ -70,7 +70,7 @@ public class PriceCalculatorShould
     [Test]
     public void two_units_of_the_same_book_has_not_discount()
     {
-        var shoppingCart = new ShoppingCart("first_book", "first_book");
+        var shoppingCart = new ShoppingCart(Book.First, Book.First);
 
         var priceWithoutDiscount = PriceCalculator.Calcule(shoppingCart);
 

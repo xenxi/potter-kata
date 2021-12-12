@@ -2,11 +2,11 @@
 {
     public class ShoppingCart
     {
-        public ShoppingCart(params string[] books)
+        public ShoppingCart(params Book[] books)
         {
             Books = books;
         }
 
-        public string[] Books { get; }
+        public IList<Book> Books { get; }
     }
 }

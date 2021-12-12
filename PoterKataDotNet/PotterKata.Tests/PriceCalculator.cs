@@ -11,7 +11,7 @@ public class PriceCalculator
     {
         var books = shoppingCart.Books;
         var i = 0;
-        IEnumerable<string> currentBooks;
+        IEnumerable<Book> currentBooks;
         decimal total = 0;
         do
         {
@@ -22,7 +22,7 @@ public class PriceCalculator
         return total;
     }
 
-    private static decimal ApplyDiscount(string[] books)
+    private static decimal ApplyDiscount(Book[] books)
     {
         if (JustOneBook(books)) return UnitPrice * books.Length;
 
@@ -47,5 +47,5 @@ public class PriceCalculator
             return 25;
         return 5;
     }
-    private static bool JustOneBook(string[] books) => books.Distinct().Count() <= 1;
+    private static bool JustOneBook(Book[] books) => books.Distinct().Count() <= 1;
 }
