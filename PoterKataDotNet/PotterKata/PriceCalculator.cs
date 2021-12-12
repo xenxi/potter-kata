@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace PotterKata.Tests;
+﻿namespace PotterKata;
 
 public class PriceCalculator
 {
