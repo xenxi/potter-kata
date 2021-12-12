@@ -59,7 +59,7 @@ public class PriceCalculatorShould
     }
 
     [Test]
-    public void calcule_lowest_price()
+    public void calcule_lowest_price_for_five_different_books_and_one_repeated()
     {
         var shoppingCart = new ShoppingCart(Book.First, Book.Second, Book.Third, Book.Fourth, Book.Fith, Book.First);
 
