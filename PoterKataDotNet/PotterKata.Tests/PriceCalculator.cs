@@ -9,11 +9,7 @@ public class PriceCalculator
 
     public static decimal Calcule(ShoppingCart shoppingCart)
     {
-        return Calcule(shoppingCart.Books);
-    }
-
-    public static decimal Calcule(params string[] books)
-    {
+        var books = shoppingCart.Books;
         var i = 0;
         IEnumerable<string> currentBooks;
         decimal total = 0;
@@ -39,6 +35,8 @@ public class PriceCalculator
         return subtotal - CalculeDiscount(subtotal, GetApplicableDiscount(numberOfBooks));
     }
 
+    private static decimal CalculeDiscount(decimal price, decimal discountRate) => price * discountRate / 100;
+
     private static int GetApplicableDiscount(int numberOfBooks)
     {
         if (numberOfBooks == 3)
@@ -49,8 +47,5 @@ public class PriceCalculator
             return 25;
         return 5;
     }
-
-    private static decimal CalculeDiscount(decimal price, decimal discountRate) => price * discountRate / 100;
-
     private static bool JustOneBook(string[] books) => books.Distinct().Count() <= 1;
 }
