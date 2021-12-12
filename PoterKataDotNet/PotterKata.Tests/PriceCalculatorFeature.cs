@@ -14,9 +14,9 @@ namespace PotterKata.Tests
         [Test]
         public void calcule_lowest_price()
         {
-            var books = new string[] { "first_book", "second_book","third_book","fourth_book","fith_book",};
+            var shoppingCart = new ShoppingCart("first_book", "second_book", "third_book", "fourth_book", "fith_book");
 
-            var price = PriceCalculator.Calcule(books);
+            var price = PriceCalculator.Calcule(shoppingCart);
 
             price.Should().Be(51.20m);
         }

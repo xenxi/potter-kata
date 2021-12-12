@@ -7,6 +7,11 @@ public class PriceCalculator
 {
     private const decimal UnitPrice = 8;
 
+    public static decimal Calcule(ShoppingCart shoppingCart)
+    {
+        return Calcule(shoppingCart.Books);
+    }
+
     public static decimal Calcule(params string[] books)
     {
         var i = 0;
