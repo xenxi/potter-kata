@@ -95,6 +95,20 @@ public class PriceCalculatorShould
         priceWithDiscount.Should().Be(51.2m);
     }
     [Test]
+    public void calcule_lowest_price()
+    {
+        var shoppingCart = new ShoppingCart(
+            Book.First, Book.First, Book.First, Book.First, Book.First,
+            Book.Second, Book.Second, Book.Second, Book.Second, Book.Second,
+            Book.Third, Book.Third, Book.Third, Book.Third,
+            Book.Fourth, Book.Fourth, Book.Fourth, Book.Fourth, Book.Fourth,
+            Book.Fith, Book.Fith, Book.Fith, Book.Fith);
+
+        var priceWithDiscount = PriceCalculator.Calcule(shoppingCart);
+
+        priceWithDiscount.Should().Be(141.2m);
+    }
+    [Test]
     public void two_units_of_the_same_book_has_not_discount()
     {
         var shoppingCart = new ShoppingCart(Book.First, Book.First);
