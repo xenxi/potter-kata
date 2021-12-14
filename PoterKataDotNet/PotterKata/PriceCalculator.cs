@@ -49,7 +49,8 @@ public class PriceCalculator
         var test = books.ToList();
 
         var group = test.GroupBy(x => x).ToDictionary(g => g.Key, g => g.Count());
-        var result = new List<IEnumerable<Book>>();
+
+        var result = new List<List<Book>>();
         while (group.Values.Sum() > 0)
         {
             var aux = new List<Book>();
@@ -63,7 +64,26 @@ public class PriceCalculator
             }
             result.Add(aux);
         }
+        return OptimizeDiscounts(result);
+    }
+
+    private static IEnumerable<IEnumerable<Book>> OptimizeDiscounts(List<List<Book>> result)
+    {
+        while (result.Any(x => x.Count == 5) && result.Any(x => x.Count == 3))
+        { 
+            var fivePack = result.First(p => p.Count == 5);
+            var threePack = result.First(p => p.Count == 3);
+
+            var book = fivePack.First(b => !threePack.Contains(b));
+
+            fivePack.Remove(book);
+            threePack.Add(book);
+        }
+
         return result;
     }
+
+ 
+
     private static bool JustOneBook(Book[] books) => books.Distinct().Count() <= 1;
 }
