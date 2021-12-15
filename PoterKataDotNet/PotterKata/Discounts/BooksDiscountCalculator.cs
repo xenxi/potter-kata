@@ -1,10 +1,10 @@
 ﻿namespace PotterKata.Discounts;
 
-public abstract class DiscountCalculator
+public abstract class BooksDiscountCalculator
 {
     private const decimal UnitPrice = 8;
 
-    public static DiscountCalculator Create()
+    public static BooksDiscountCalculator Create()
     {
         var noDiscount = new NoDiscount();
         var TwoBooksDiscount = new TwoBooksDiscount(noDiscount);

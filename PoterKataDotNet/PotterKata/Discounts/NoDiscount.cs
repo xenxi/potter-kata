@@ -1,6 +1,6 @@
 ﻿namespace PotterKata.Discounts;
 
-public class NoDiscount : DiscountCalculator
+public class NoDiscount : BooksDiscountCalculator
 {
     public override decimal ApplyDiscount(IEnumerable<Book> books) => CalculeSubtotal(books.Count());
 }

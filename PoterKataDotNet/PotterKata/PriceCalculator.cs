@@ -4,13 +4,13 @@ namespace PotterKata;
 
 public class PriceCalculator
 {
-    private static readonly DiscountCalculator _discountCalculator = DiscountCalculator.Create();
+    private static readonly BooksDiscountCalculator _discountCalculator = BooksDiscountCalculator.Create();
 
     public static decimal Calcule(ShoppingCart shoppingCart)
     {
         var books = shoppingCart.Books;
 
-        var packs = GetPacks(books);
+        var packs = GetPacks(books).Select(p => p.Books);
         var total = 0m;
         foreach (var pack in packs)
         {
@@ -20,7 +20,7 @@ public class PriceCalculator
         return total;
     }
 
-    private static List<List<Book>> GetPacks(IList<Book> books)
+    private static List<BooksPack> GetPacks(IList<Book> books)
     {
         var booksPacks = new List<BooksPack>(); 
         foreach (var book in books)
@@ -28,7 +28,7 @@ public class PriceCalculator
             var candidates = booksPacks.Where(p => p.CanAdd(book));
             if (candidates.Any())
             {
-                var bookPack = candidates.OrderBy(p => PriceIncrement(p, book)).First();
+                var bookPack = candidates.OrderBy(p => NextPrice(p, book)).First();
                 bookPack.Add(book);
             }
             else 
@@ -40,10 +40,10 @@ public class PriceCalculator
 
         }
 
-        return booksPacks.Select(p => p.Books.ToList()).ToList();
+        return booksPacks;
     }
 
-    private static decimal PriceIncrement(BooksPack pack, Book nextBook)
+    private static decimal NextPrice(BooksPack pack, Book nextBook)
     {
         var books = pack.Books.Append(nextBook);
 

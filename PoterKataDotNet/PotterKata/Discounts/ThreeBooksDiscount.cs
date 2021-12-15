@@ -1,10 +1,10 @@
 ﻿namespace PotterKata.Discounts;
 
-public class ThreeBooksDiscount : DiscountCalculator
+public class ThreeBooksDiscount : BooksDiscountCalculator
 {
-    private readonly DiscountCalculator _nextDiscount;
+    private readonly BooksDiscountCalculator _nextDiscount;
 
-    public ThreeBooksDiscount(DiscountCalculator nextDiscount) => _nextDiscount = nextDiscount;
+    public ThreeBooksDiscount(BooksDiscountCalculator nextDiscount) => _nextDiscount = nextDiscount;
 
     public override decimal ApplyDiscount(IEnumerable<Book> books)
     {
