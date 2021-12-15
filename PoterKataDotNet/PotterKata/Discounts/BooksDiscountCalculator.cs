@@ -14,6 +14,11 @@ public abstract class BooksDiscountCalculator
         return fiveBooksDiscount;
     }
 
+    internal object ApplyDiscount(object numOfBooks)
+    {
+        throw new NotImplementedException();
+    }
+
     public abstract decimal ApplyDiscount(int numOfBooks);
 
     protected decimal CalculePriceWithDiscount(decimal subtotal, decimal discountRate) => subtotal - CalculeDiscount(subtotal, discountRate);

@@ -10,19 +10,14 @@ public class PriceCalculator
     {
         var books = shoppingCart.Books;
 
-        var packs = GetPacks(books).Select(p => p.Books);
-        var total = 0m;
-        foreach (var pack in packs)
-        {
-            total += _discountCalculator.ApplyDiscount(pack.Count);
-        }
-
+        var packs = GetPacks(books);
+        var total = packs.Select(p => _discountCalculator.ApplyDiscount(p.NumOfBooks)).Sum();
         return total;
     }
 
     private static List<BooksPack> GetPacks(IList<Book> books)
     {
-        var booksPacks = new List<BooksPack>(); 
+        var booksPacks = new List<BooksPack>();
         foreach (var book in books)
         {
             var candidates = booksPacks.Where(p => p.CanAdd(book));
@@ -31,13 +26,12 @@ public class PriceCalculator
                 var bookPack = candidates.OrderBy(p => NextPrice(p, book)).First();
                 bookPack.Add(book);
             }
-            else 
+            else
             {
                 var bookPack = new BooksPack();
                 bookPack.Add(book);
                 booksPacks.Add(bookPack);
             }
-
         }
 
         return booksPacks;
@@ -47,8 +41,8 @@ public class PriceCalculator
     {
         var books = pack.Books.Append(nextBook);
 
-       var currentPrice = _discountCalculator.ApplyDiscount(pack.Books.Count);
-       var nextPrice = _discountCalculator.ApplyDiscount(books.Count());
+        var currentPrice = _discountCalculator.ApplyDiscount(pack.Books.Count);
+        var nextPrice = _discountCalculator.ApplyDiscount(books.Count());
 
         return nextPrice - currentPrice;
     }
