@@ -14,7 +14,7 @@ public class PriceCalculator
         var total = 0m;
         foreach (var pack in packs)
         {
-            total += _discountCalculator.ApplyDiscount(pack);
+            total += _discountCalculator.ApplyDiscount(pack.Count);
         }
 
         return total;
@@ -47,8 +47,8 @@ public class PriceCalculator
     {
         var books = pack.Books.Append(nextBook);
 
-       var currentPrice = _discountCalculator.ApplyDiscount(pack.Books);
-       var nextPrice = _discountCalculator.ApplyDiscount(books);
+       var currentPrice = _discountCalculator.ApplyDiscount(pack.Books.Count);
+       var nextPrice = _discountCalculator.ApplyDiscount(books.Count());
 
         return nextPrice - currentPrice;
     }
