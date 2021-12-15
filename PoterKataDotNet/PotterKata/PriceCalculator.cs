@@ -15,7 +15,7 @@ public class PriceCalculator
         return total;
     }
 
-    private static decimal CalculeTotal(List<BooksPack> packs) 
+    private static decimal CalculeTotal(List<BooksPack> packs)
         => packs
         .Select(p => _discountCalculator.ApplyDiscount(p.NumOfBooks))
         .Sum();
@@ -44,10 +44,8 @@ public class PriceCalculator
 
     private static decimal NextPrice(BooksPack pack, Book nextBook)
     {
-        var books = pack.Books.Append(nextBook);
-
-        var currentPrice = _discountCalculator.ApplyDiscount(pack.Books.Count);
-        var nextPrice = _discountCalculator.ApplyDiscount(books.Count());
+        var currentPrice = _discountCalculator.ApplyDiscount(pack.NumOfBooks);
+        var nextPrice = _discountCalculator.ApplyDiscount(pack.NumOfBooks + 1);
 
         return nextPrice - currentPrice;
     }
