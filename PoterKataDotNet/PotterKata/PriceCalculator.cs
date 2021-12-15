@@ -28,7 +28,7 @@ public class PriceCalculator
             var candidates = booksPacks.Where(p => p.CanAdd(book));
             if (candidates.Any())
             {
-                var bookPack = candidates.OrderBy(p => NextPrice(p, book)).First();
+                var bookPack = candidates.OrderBy(p => PriceIncrement(p, book)).First();
                 bookPack.Add(book);
             }
             else 
@@ -43,7 +43,7 @@ public class PriceCalculator
         return booksPacks.Select(p => p.Books.ToList()).ToList();
     }
 
-    private static decimal NextPrice(BooksPack pack, Book nextBook)
+    private static decimal PriceIncrement(BooksPack pack, Book nextBook)
     {
         var books = pack.Books.Append(nextBook);
 
