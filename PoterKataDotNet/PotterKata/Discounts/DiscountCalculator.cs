@@ -1,8 +1,18 @@
 ﻿namespace PotterKata.Discounts;
 
-public abstract class Discount
+public abstract class DiscountCalculator
 {
     private const decimal UnitPrice = 8;
+
+    public static DiscountCalculator Create()
+    {
+        var noDiscount = new NoDiscount();
+        var TwoBooksDiscount = new TwoBooksDiscount(noDiscount);
+        var threeBooksDiscount = new ThreeBooksDiscount(TwoBooksDiscount);
+        var fourBooksDiscount = new FourBooksDiscount(threeBooksDiscount);
+        var fiveBooksDiscount = new FiveBooksDiscount(fourBooksDiscount);
+        return fiveBooksDiscount;
+    }
 
     public abstract decimal ApplyDiscount(IList<Book> books);
 
@@ -13,11 +23,11 @@ public abstract class Discount
     private decimal CalculeDiscount(decimal price, decimal discountRate) => price * discountRate / 100;
 }
 
-public class FourBooksDiscount : Discount
+public class FourBooksDiscount : DiscountCalculator
 {
-    private readonly Discount _nextDiscount;
+    private readonly DiscountCalculator _nextDiscount;
 
-    public FourBooksDiscount(Discount nextDiscount) => _nextDiscount = nextDiscount;
+    public FourBooksDiscount(DiscountCalculator nextDiscount) => _nextDiscount = nextDiscount;
 
     public override decimal ApplyDiscount(IList<Book> books)
     {
@@ -32,16 +42,16 @@ public class FourBooksDiscount : Discount
     private static bool ApplicableDiscount(int numOfBooks) => numOfBooks == 4;
 }
 
-public class NoDiscount : Discount
+public class NoDiscount : DiscountCalculator
 {
     public override decimal ApplyDiscount(IList<Book> books) => CalculeSubtotal(books.Count);
 }
 
-public class ThreeBooksDiscount : Discount
+public class ThreeBooksDiscount : DiscountCalculator
 {
-    private readonly Discount _nextDiscount;
+    private readonly DiscountCalculator _nextDiscount;
 
-    public ThreeBooksDiscount(Discount nextDiscount) => _nextDiscount = nextDiscount;
+    public ThreeBooksDiscount(DiscountCalculator nextDiscount) => _nextDiscount = nextDiscount;
 
     public override decimal ApplyDiscount(IList<Book> books)
     {
@@ -56,11 +66,11 @@ public class ThreeBooksDiscount : Discount
     private static bool ApplicableDiscount(int numOfBooks) => numOfBooks == 3;
 }
 
-public class TwoBooksDiscount : Discount
+public class TwoBooksDiscount : DiscountCalculator
 {
-    private readonly Discount _nextDiscount;
+    private readonly DiscountCalculator _nextDiscount;
 
-    public TwoBooksDiscount(Discount nextDiscount) => _nextDiscount = nextDiscount;
+    public TwoBooksDiscount(DiscountCalculator nextDiscount) => _nextDiscount = nextDiscount;
 
     public override decimal ApplyDiscount(IList<Book> books)
     {
@@ -74,11 +84,12 @@ public class TwoBooksDiscount : Discount
 
     private static bool ApplicableDiscount(int numOfBooks) => numOfBooks == 2;
 }
-public class FiveBooksDiscount : Discount
-{
-    private readonly Discount _nextDiscount;
 
-    public FiveBooksDiscount(Discount nextDiscount) => _nextDiscount = nextDiscount;
+public class FiveBooksDiscount : DiscountCalculator
+{
+    private readonly DiscountCalculator _nextDiscount;
+
+    public FiveBooksDiscount(DiscountCalculator nextDiscount) => _nextDiscount = nextDiscount;
 
     public override decimal ApplyDiscount(IList<Book> books)
     {

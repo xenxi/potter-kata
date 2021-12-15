@@ -4,7 +4,7 @@ namespace PotterKata;
 
 public class PriceCalculator
 {
-    private static readonly Discount _discountCalculator = BuildDiscountCalculator();
+    private static readonly DiscountCalculator _discountCalculator = DiscountCalculator.Create();
 
     public static decimal Calcule(ShoppingCart shoppingCart)
     {
@@ -18,16 +18,6 @@ public class PriceCalculator
         }
 
         return total;
-    }
-
-    private static Discount BuildDiscountCalculator()
-    {
-        var noDiscount = new NoDiscount();
-        var TwoBooksDiscount = new TwoBooksDiscount(noDiscount);
-        var threeBooksDiscount = new ThreeBooksDiscount(TwoBooksDiscount);
-        var fourBooksDiscount = new FourBooksDiscount(threeBooksDiscount);
-        var fiveBooksDiscount = new FiveBooksDiscount(fourBooksDiscount);
-        return fiveBooksDiscount;
     }
 
     private static List<List<Book>> GetPacks(IList<Book> books)
