@@ -52,21 +52,4 @@ public class PriceCalculator
 
         return nextPrice - currentPrice;
     }
-
-    private static List<List<Book>> OptimizeDiscounts(List<List<Book>> result)
-    {
-
-        while (result.Any(x => x.Count == 5) && result.Any(x => x.Count == 3))
-        {
-            var fivePack = result.First(p => p.Count == 5);
-            var threePack = result.First(p => p.Count == 3);
-
-            var book = fivePack.First(b => !threePack.Contains(b));
-
-            fivePack.Remove(book);
-            threePack.Add(book);
-        }
-
-        return result;
-    }
 }
