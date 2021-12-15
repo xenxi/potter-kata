@@ -14,7 +14,7 @@ public abstract class DiscountCalculator
         return fiveBooksDiscount;
     }
 
-    public abstract decimal ApplyDiscount(IList<Book> books);
+    public abstract decimal ApplyDiscount(IEnumerable<Book> books);
 
     protected decimal CalculePriceWithDiscount(decimal subtotal, decimal discountRate) => subtotal - CalculeDiscount(subtotal, discountRate);
 

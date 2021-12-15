@@ -6,9 +6,9 @@ public class FiveBooksDiscount : DiscountCalculator
 
     public FiveBooksDiscount(DiscountCalculator nextDiscount) => _nextDiscount = nextDiscount;
 
-    public override decimal ApplyDiscount(IList<Book> books)
+    public override decimal ApplyDiscount(IEnumerable<Book> books)
     {
-        var numOfBooks = books.Count;
+        var numOfBooks = books.Count();
         if (!ApplicableDiscount(numOfBooks))
             return _nextDiscount.ApplyDiscount(books);
 

@@ -2,5 +2,5 @@
 
 public class NoDiscount : DiscountCalculator
 {
-    public override decimal ApplyDiscount(IList<Book> books) => CalculeSubtotal(books.Count);
+    public override decimal ApplyDiscount(IEnumerable<Book> books) => CalculeSubtotal(books.Count());
 }
