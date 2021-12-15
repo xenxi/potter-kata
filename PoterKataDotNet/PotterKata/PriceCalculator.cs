@@ -11,9 +11,14 @@ public class PriceCalculator
         var books = shoppingCart.Books;
 
         var packs = GetPacks(books);
-        var total = packs.Select(p => _discountCalculator.ApplyDiscount(p.NumOfBooks)).Sum();
+        var total = CalculeTotal(packs);
         return total;
     }
+
+    private static decimal CalculeTotal(List<BooksPack> packs) 
+        => packs
+        .Select(p => _discountCalculator.ApplyDiscount(p.NumOfBooks))
+        .Sum();
 
     private static List<BooksPack> GetPacks(IList<Book> books)
     {
