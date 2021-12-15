@@ -1,8 +1,11 @@
-﻿namespace PotterKata;
+﻿using PotterKata.Discounts;
+
+namespace PotterKata;
 
 public class PriceCalculator
 {
     private const decimal UnitPrice = 8;
+    private static readonly Discount _discountCalculator = BuildDiscountCalculator();
 
     public static decimal Calcule(ShoppingCart shoppingCart)
     {
@@ -12,7 +15,7 @@ public class PriceCalculator
         var total = 0m;
         foreach (var pack in packs)
         {
-            total += ApplyDiscount(pack.ToArray());
+            total += _discountCalculator.ApplyDiscount(pack);
         }
 
         return total;
@@ -31,6 +34,15 @@ public class PriceCalculator
         return subtotal - CalculeDiscount(subtotal, GetApplicableDiscount(numberOfBooks));
     }
 
+    private static Discount BuildDiscountCalculator()
+    {
+        var noDiscount = new NoDiscount();
+        var TwoBooksDiscount = new TwoBooksDiscount(noDiscount);
+        var threeBooksDiscount = new ThreeBooksDiscount(TwoBooksDiscount);
+        var fourBooksDiscount = new FourBooksDiscount(threeBooksDiscount);
+        var fiveBooksDiscount = new FiveBooksDiscount(fourBooksDiscount);
+        return fiveBooksDiscount;
+    }
     private static decimal CalculeDiscount(decimal price, decimal discountRate) => price * discountRate / 100;
 
     private static int GetApplicableDiscount(int numberOfBooks)
@@ -44,7 +56,7 @@ public class PriceCalculator
         return 5;
     }
 
-    private static IEnumerable<IEnumerable<Book>> GetPacks(IList<Book> books)
+    private static List<List<Book>> GetPacks(IList<Book> books)
     {
         var test = books.ToList();
 
@@ -67,10 +79,12 @@ public class PriceCalculator
         return OptimizeDiscounts(result);
     }
 
-    private static IEnumerable<IEnumerable<Book>> OptimizeDiscounts(List<List<Book>> result)
+    private static bool JustOneBook(Book[] books) => books.Distinct().Count() <= 1;
+
+    private static List<List<Book>> OptimizeDiscounts(List<List<Book>> result)
     {
         while (result.Any(x => x.Count == 5) && result.Any(x => x.Count == 3))
-        { 
+        {
             var fivePack = result.First(p => p.Count == 5);
             var threePack = result.First(p => p.Count == 3);
 
@@ -82,8 +96,4 @@ public class PriceCalculator
 
         return result;
     }
-
- 
-
-    private static bool JustOneBook(Book[] books) => books.Distinct().Count() <= 1;
 }
