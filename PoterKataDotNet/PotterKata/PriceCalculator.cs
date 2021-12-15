@@ -9,9 +9,9 @@ public class PriceCalculator
     public static decimal Calcule(ShoppingCart shoppingCart)
     {
         var books = shoppingCart.Books;
-
-        var packs = GetPacks(books);
+        var packs = CreatePacks(books);
         var total = CalculeTotal(packs);
+
         return total;
     }
 
@@ -20,7 +20,7 @@ public class PriceCalculator
         .Select(p => _discountCalculator.ApplyDiscount(p.NumOfBooks))
         .Sum();
 
-    private static List<BooksPack> GetPacks(IList<Book> books)
+    private static List<BooksPack> CreatePacks(IList<Book> books)
     {
         var booksPacks = new List<BooksPack>();
         foreach (var book in books)
