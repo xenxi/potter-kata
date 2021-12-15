@@ -31,12 +31,14 @@ Harry Potter books), **giving as big a discount as possible**.
 - 1 copy of the fourth book
 - 1 copy of the fifth book
 
+### Answer: 51.20 EUR
+
 ```
  (4 * 8) - 20% [first book, second book, third book, fourth book]
 + (4 * 8) - 20% [first book, second book, third book, fifth book]
 = 25.6 * 2
 ```
-### Answer: 51.20 EUR
+
 
 
 
