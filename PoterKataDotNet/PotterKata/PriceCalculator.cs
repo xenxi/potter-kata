@@ -4,7 +4,6 @@ namespace PotterKata;
 
 public class PriceCalculator
 {
-    private const decimal UnitPrice = 8;
     private static readonly Discount _discountCalculator = BuildDiscountCalculator();
 
     public static decimal Calcule(ShoppingCart shoppingCart)
@@ -21,19 +20,6 @@ public class PriceCalculator
         return total;
     }
 
-    private static decimal ApplyDiscount(Book[] books)
-    {
-        if (JustOneBook(books)) return UnitPrice * books.Length;
-
-        return ApplyDiscount(books.Length);
-    }
-
-    private static decimal ApplyDiscount(int numberOfBooks)
-    {
-        var subtotal = UnitPrice * numberOfBooks;
-        return subtotal - CalculeDiscount(subtotal, GetApplicableDiscount(numberOfBooks));
-    }
-
     private static Discount BuildDiscountCalculator()
     {
         var noDiscount = new NoDiscount();
@@ -42,18 +28,6 @@ public class PriceCalculator
         var fourBooksDiscount = new FourBooksDiscount(threeBooksDiscount);
         var fiveBooksDiscount = new FiveBooksDiscount(fourBooksDiscount);
         return fiveBooksDiscount;
-    }
-    private static decimal CalculeDiscount(decimal price, decimal discountRate) => price * discountRate / 100;
-
-    private static int GetApplicableDiscount(int numberOfBooks)
-    {
-        if (numberOfBooks == 3)
-            return 10;
-        if (numberOfBooks == 4)
-            return 20;
-        if (numberOfBooks == 5)
-            return 25;
-        return 5;
     }
 
     private static List<List<Book>> GetPacks(IList<Book> books)
@@ -78,8 +52,6 @@ public class PriceCalculator
         }
         return OptimizeDiscounts(result);
     }
-
-    private static bool JustOneBook(Book[] books) => books.Distinct().Count() <= 1;
 
     private static List<List<Book>> OptimizeDiscounts(List<List<Book>> result)
     {
