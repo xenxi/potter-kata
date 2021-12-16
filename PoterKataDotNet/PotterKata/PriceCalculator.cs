@@ -23,23 +23,27 @@ public class PriceCalculator
     private static List<UniqueBooksPack> CreatePacks(IList<Book> books)
     {
         var booksPacks = new List<UniqueBooksPack>();
+
         foreach (var book in books)
-        {
-            var candidates = booksPacks.Where(p => p.CanAdd(book));
-            if (candidates.Any())
-            {
-                var bookPack = candidates.OrderBy(p => NextPrice(p, book)).First();
-                bookPack.Add(book);
-            }
-            else
-            {
-                var bookPack = new UniqueBooksPack();
-                bookPack.Add(book);
-                booksPacks.Add(bookPack);
-            }
-        }
+            AddBook(booksPacks, book);
 
         return booksPacks;
+    }
+
+    private static void AddBook(List<UniqueBooksPack> booksPacks, Book book)
+    {
+        var candidates = booksPacks.Where(p => p.CanAdd(book));
+        if (candidates.Any())
+        {
+            var bookPack = candidates.OrderBy(p => NextPrice(p, book)).First();
+            bookPack.Add(book);
+        }
+        else
+        {
+            var bookPack = new UniqueBooksPack();
+            bookPack.Add(book);
+            booksPacks.Add(bookPack);
+        }
     }
 
     private static decimal NextPrice(UniqueBooksPack pack, Book nextBook)
