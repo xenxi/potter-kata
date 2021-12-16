@@ -1,6 +1,6 @@
 ﻿namespace PotterKata;
 
-public class BooksPack
+public class UniqueBooksPack
 {
     private List<Book> _books = new List<Book>();
 

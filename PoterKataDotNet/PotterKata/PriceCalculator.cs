@@ -15,14 +15,14 @@ public class PriceCalculator
         return total;
     }
 
-    private static decimal CalculeTotal(List<BooksPack> packs)
+    private static decimal CalculeTotal(List<UniqueBooksPack> packs)
         => packs
         .Select(p => _discountCalculator.ApplyDiscount(p.NumOfBooks))
         .Sum();
 
-    private static List<BooksPack> CreatePacks(IList<Book> books)
+    private static List<UniqueBooksPack> CreatePacks(IList<Book> books)
     {
-        var booksPacks = new List<BooksPack>();
+        var booksPacks = new List<UniqueBooksPack>();
         foreach (var book in books)
         {
             var candidates = booksPacks.Where(p => p.CanAdd(book));
@@ -33,7 +33,7 @@ public class PriceCalculator
             }
             else
             {
-                var bookPack = new BooksPack();
+                var bookPack = new UniqueBooksPack();
                 bookPack.Add(book);
                 booksPacks.Add(bookPack);
             }
@@ -42,7 +42,7 @@ public class PriceCalculator
         return booksPacks;
     }
 
-    private static decimal NextPrice(BooksPack pack, Book nextBook)
+    private static decimal NextPrice(UniqueBooksPack pack, Book nextBook)
     {
         var currentPrice = _discountCalculator.ApplyDiscount(pack.NumOfBooks);
         var nextPrice = _discountCalculator.ApplyDiscount(pack.NumOfBooks + 1);
