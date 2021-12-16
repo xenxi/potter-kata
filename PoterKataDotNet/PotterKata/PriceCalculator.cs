@@ -35,7 +35,7 @@ public class PriceCalculator
         var candidates = booksPacks.Where(p => p.CanAdd(book));
         if (candidates.Any())
         {
-            var bookPack = candidates.OrderBy(p => NextPrice(p, book)).First();
+            var bookPack = candidates.OrderBy(p => CalculePriceIncrement(p, book)).First();
             bookPack.Add(book);
         }
         else
@@ -46,7 +46,7 @@ public class PriceCalculator
         }
     }
 
-    private static decimal NextPrice(UniqueBooksPack pack, Book nextBook)
+    private static decimal CalculePriceIncrement(UniqueBooksPack pack, Book nextBook)
     {
         var currentPrice = _discountCalculator.ApplyDiscount(pack.NumOfBooks);
         var nextPrice = _discountCalculator.ApplyDiscount(pack.NumOfBooks + 1);
