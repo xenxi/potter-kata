@@ -32,19 +32,18 @@ public class PriceCalculator
 
     private static void AddBook(List<UniqueBooksPack> booksPacks, Book book)
     {
-        var candidates = booksPacks.Where(p => p.CanAdd(book));
-        if (candidates.Any())
+        var bookPack = booksPacks
+                        .Where(p => p.CanAdd(book))
+                        .OrderBy(p => CalculePriceIncrement(p, book))
+                        .FirstOrDefault();
+        if (bookPack == null)
         {
-            var bookPack = candidates.OrderBy(p => CalculePriceIncrement(p, book)).First();
-            bookPack.Add(book);
-        }
-        else
-        {
-            var bookPack = new UniqueBooksPack();
-            bookPack.Add(book);
+            bookPack = new UniqueBooksPack();
             booksPacks.Add(bookPack);
         }
+        bookPack.Add(book);
     }
+
 
     private static decimal CalculePriceIncrement(UniqueBooksPack pack, Book nextBook)
     {
